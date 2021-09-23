@@ -20,29 +20,31 @@ const AuthForm = () => {
 
   function submitHandler(e) {
     e.preventDefault();
+    let url;
     if (isLogin) {
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBuseaVZfJgxqYPMwsGInpPAov6bgkx-As";
     } else {
-      fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBuseaVZfJgxqYPMwsGInpPAov6bgkx-As",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            email: userEmail,
-            password: userPassword,
-            returnSecureToken: true,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          if (data) alert(data.error.message);
-          console.log(data);
-        })
-        .catch((e) => alert(e.message));
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBuseaVZfJgxqYPMwsGInpPAov6bgkx-As";
     }
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        email: userEmail,
+        password: userPassword,
+        returnSecureToken: true,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) alert(data.error.message);
+        console.log(data);
+      })
+      .catch((e) => alert(e.message));
   }
   return (
     <section className={classes.auth}>
