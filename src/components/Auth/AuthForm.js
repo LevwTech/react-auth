@@ -36,8 +36,12 @@ const AuthForm = () => {
           },
         }
       )
-        .then((res) => res.json)
-        .then((data) => console.log(data));
+        .then((res) => res.json())
+        .then((data) => {
+          if (data) alert(data.error.message);
+          console.log(data);
+        })
+        .catch((e) => alert(e.message));
     }
   }
   return (
