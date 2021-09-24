@@ -1,11 +1,15 @@
 import { useState } from "react";
-
+import { useSelector, useDispatch } from "react-redux";
 import classes from "./AuthForm.module.css";
+import types from "../../store/actionTypes";
 
 const AuthForm = () => {
+  const dispatch = useDispatch();
   const [isLogin, setIsLogin] = useState(true);
   const [userEmail, setEmail] = useState("");
   const [userPassword, setPassword] = useState("");
+  const token = useSelector((state) => state.token);
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
 
   function onChangeEmailHandler(e) {
     setEmail(e.target.value);
@@ -43,6 +47,9 @@ const AuthForm = () => {
       .then((data) => {
         if (data.error) alert(data.error.message);
         console.log(data);
+        dispatch({ type: types.LOGIN, payload: data.idToken });
+        console.log(token);
+        console.log(isLoggedIn);
       })
       .catch((e) => alert(e.message));
   }
