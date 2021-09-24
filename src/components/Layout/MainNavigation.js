@@ -1,9 +1,16 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import classes from "./MainNavigation.module.css";
+import types from "../../store/actionTypes";
+import { useDispatch } from "react-redux";
 
 const MainNavigation = () => {
+  const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  function onClickHandler(e) {
+    e.preventDefault();
+    dispatch({ type: types.LOGOUT });
+  }
   return (
     <header className={classes.header}>
       <Link to="/">
@@ -23,7 +30,7 @@ const MainNavigation = () => {
           )}
           {isLoggedIn && (
             <li>
-              <button>Logout</button>
+              <button onClick={onClickHandler}>Logout</button>
             </li>
           )}
         </ul>
