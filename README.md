@@ -1,2 +1,2 @@
 # react-auth
-implementention Authentication in reactjs
+implementention Authentication in using React.js and firebase hosted at surge 
